@@ -16,6 +16,7 @@ library
   exposed-modules:
       Lib.DirTree
       Lib.OpenClass
+      Lib.Page13
   other-modules:
       Paths_lawvere2hs
   hs-source-dirs:
