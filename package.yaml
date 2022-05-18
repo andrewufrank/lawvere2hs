@@ -1,12 +1,11 @@
-name:           hs2html
-version:        0.2.1
+name:           lawvere2hs
+version:        0.1
 
 ghc-options: -Wall
-synopsis: convert markdown to HTML and PDF
+synopsis: examples in lawvere in haskell
 
 description: |
-    an example how to convert an markdown file to HTML and PDF 
-    with pandoc
+    code examples as haskell code
 dependencies:
   - base >= 4.7 && < 5
 #   - uniform-strings
@@ -19,11 +18,11 @@ library:
   source-dirs: .
 
 executables:
-  md2:
-    main: ClassMain.hs
+  lav:
+    main: LawvereMain.hs
     source-dirs: src
     dependencies: 
-      - hs2html
+      lawvere2hs
 
 # tests:
 #   test1:
