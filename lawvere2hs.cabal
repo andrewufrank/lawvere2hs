@@ -24,6 +24,7 @@ library
   ghc-options: -Wall
   build-depends:
       base >=4.7 && <5
+    , uniform-strings
   default-language: Haskell2010
 
 executable lav
@@ -36,4 +37,5 @@ executable lav
   build-depends:
       base >=4.7 && <5
     , lawvere2hs
+    , uniform-strings
   default-language: Haskell2010

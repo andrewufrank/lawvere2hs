@@ -8,7 +8,7 @@ description: |
     code examples as haskell code
 dependencies:
   - base >= 4.7 && < 5
-#   - uniform-strings
+  - uniform-strings
 #   - uniform-convenience
 # #  - test-framework 
 #   - QuickCheck
