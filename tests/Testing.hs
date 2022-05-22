@@ -11,7 +11,7 @@
 import           Test.Framework
 import  {-@ HTF_TESTS @-}         Lib.Lawvere_test
 
-main :: IO 
+main :: IO ()
 main =  do
     putStrLn "Lib.Testing.hs for Lawvere_test:\n"
     r <- htfMain htf_importedTests
