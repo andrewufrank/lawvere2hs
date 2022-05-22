@@ -9,6 +9,7 @@
 {-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
+-- {-# LANGUAGE DeriveAnyClass     #-}
 
 {-# OPTIONS_GHC -Wno-unused-imports #-}
 {-# OPTIONS_GHC -Wno-missing-signatures #-}
@@ -16,13 +17,14 @@
 module Lib.Page13   
      where
 
-
-import Uniform.Strings
+import UniformBase 
+-- import Uniform.Strings
 -- page 13: sets, maps, composition
+import Test.QuickCheck --  (arbitraryBoundedEnum)
 
 -- the objects
-data Set13 = John | Mary | Sam deriving (Show)
-data Set14 = Eggs | Toast | Oatmeal | Coffee deriving (Show)
+data Set13 = John | Mary | Sam deriving (Show, Eq, Bounded, Enum)
+data Set14 = Eggs | Toast | Oatmeal | Coffee deriving (Show, Eq)
 -- the maps 
 f13 :: Set13 -> Set14
 f13 (John) = Eggs

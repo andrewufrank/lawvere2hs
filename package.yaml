@@ -8,11 +8,11 @@ description: |
     code examples as haskell code
 dependencies:
   - base >= 4.7 && < 5
-  - uniform-strings
+  - uniformBase
 #   - uniform-convenience
 # #  - test-framework 
-#   - QuickCheck
-#   - HTF
+  - QuickCheck
+  # - test-simple ==0.1.9
 
 library:
   source-dirs: .
@@ -24,12 +24,19 @@ executables:
     dependencies: 
       lawvere2hs
 
-# tests:
-#   test1:
-#     main: ExampleTesting.hs
-#     source-dirs: tests
-#     dependencies: 
-#       - TestSimple
-# #      - QuickCheck 
-# #      - test-framework 
+tests:
+  test1:
+    main: Testing.hs
+    source-dirs: tests
+    # main: Lib.Lawvere_test.hse
+    dependencies: 
+      - HTF
+      - uniformBase
+      # - TestSimple
+      # - test-simple
+      - QuickCheck 
+      # - test-framework 
+      - test-invariant
+      - numeric-prelude   # for algebra.Lawas
+      - lawvere2hs
 
