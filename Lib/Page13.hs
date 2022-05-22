@@ -1,6 +1,7 @@
 -----------------------------------------------------------------------------
 --
--- Module      :    a sub 
+-- Module      :   the code for aticle 1 page 13
+-- page 13: sets, maps, composition
 --------------------------------------------------------------------------- 
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
@@ -9,8 +10,6 @@
 {-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
--- {-# LANGUAGE DeriveAnyClass     #-}
-
 {-# OPTIONS_GHC -Wno-unused-imports #-}
 {-# OPTIONS_GHC -Wno-missing-signatures #-}
 
@@ -18,9 +17,6 @@ module Lib.Page13
      where
 
 import UniformBase 
--- import Uniform.Strings
--- page 13: sets, maps, composition
-import Test.QuickCheck --  (arbitraryBoundedEnum)
 
 -- the objects
 data Set13 = John | Mary | Sam deriving (Show, Eq, Bounded, Enum)

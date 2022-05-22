@@ -9,10 +9,7 @@ description: |
 dependencies:
   - base >= 4.7 && < 5
   - uniformBase
-#   - uniform-convenience
-# #  - test-framework 
-  - QuickCheck
-  # - test-simple ==0.1.9
+ 
 
 library:
   source-dirs: .
@@ -30,13 +27,10 @@ tests:
     source-dirs: tests
     # main: Lib.Lawvere_test.hse
     dependencies: 
+      - lawvere2hs
       - HTF
       - uniformBase
-      # - TestSimple
-      # - test-simple
       - QuickCheck 
-      # - test-framework 
       - test-invariant
       - numeric-prelude   # for algebra.Lawas
-      - lawvere2hs
 
