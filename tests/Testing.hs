@@ -5,6 +5,9 @@
 -----------------------------------------------------------------------------
 {-# OPTIONS_GHC -F -pgmF htfpp #-}
 {-# LANGUAGE OverloadedStrings     #-}
+{-# OPTIONS_GHC -Wno-unused-top-binds #-}  
+                 -- htf_main_thisModulesTests is not used
+ 
 
 -- module Spec     where      -- must have Main (main) or Main where
 
