@@ -46,7 +46,7 @@ fg13 = f13 . g13
 -- the maps are f13 and g13
 -- the identity maps: id13, id14
 
--- the identity law: 
+-- the identity law:   id13 . f = f 
 -- the associate law: 
 
 page13 :: IO ()
