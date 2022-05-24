@@ -28,7 +28,7 @@ import Lib.Page13
 import UniformBase
  
 
-import           Algebra.Laws             as Law
+import  qualified         Algebra.Laws             as Law
 import           Test.Framework
 import           Test.Invariant           as Rule  
 import Test.QuickCheck --  (arbitraryBoundedEnum)
@@ -54,10 +54,16 @@ identity1 idop op a = (op . idop) a == op a
 identity2 :: Eq b => (b -> b) -> (a -> b) -> a -> Bool 
 identity2 idop op a = (idop . op) a == op a 
 
-prop_id13_law1 a = identity1 id13 g13 a
-prop_id13_law2 a = identity2 id13 g13 a
-prop_id13_law3 a = identity2 id14 f13 a
-prop_id13_law4 a = identity1 id13 f13 a
+identity :: Eq b => (a -> a) -> (a -> b) -> (b -> b) -> a -> Bool 
+identity ida ab idb a = identity1 ida ab a && identity2 idb ab a
+
+-- prop_id13_law1 a = identity1 id13 g13 a
+-- prop_id13_law2 a = identity2 id13 g13 a
+-- prop_id13_law3 a = identity2 id14 f13 a
+-- prop_id13_law4 a = identity1 id13 f13 a
+
+prop_id_f13 a = identity id13 f13 id14 a 
+prop_id_g13 a = identity id13 g13 id13 a 
 
 -- from Algebra.Laws:  the identity function has a different signature. 
 -- this is for operations on points, not for composition of functions 

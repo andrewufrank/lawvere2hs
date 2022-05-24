@@ -67,6 +67,7 @@ page13 :: IO ()
 page13= do
     putStrLn "Lib.Page13 start"
     putIOwords ["fg13", showT (fg13 John)]
+    putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
     putStrLn "Lib.Page13 done"
     return ()
 
