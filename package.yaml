@@ -19,7 +19,7 @@ executables:
     main: LawvereMain.hs
     source-dirs: src
     dependencies: 
-      lawvere2hs
+      - lawvere2hs
 
 tests:
   test1:
