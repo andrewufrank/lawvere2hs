@@ -37,14 +37,25 @@ f15' 2 = 3
 f15'' :: Set13 -> Set14
 f15'' = toEnum14 . f15' . fromEnum 
 
-
-
--- instance Functor p13 where 
---     fmap f15 = f15''
-
-
 using:: IO () 
 using = do 
     putIOwords ["fromEnum john mary", showT [fromEnum John, fromEnum Mary]]
     putIOwords ["toEnum 0,1", showT [toEnum13 0, toEnum13 1]]
     putIOwords ["f15'' ", showT (map f15'' [John, Mary, Sam])]
+
+data I3 a = I3 a deriving (Eq, Ord, Show, Read)
+unI3 (I3 a) = a 
+toI3 :: Set13 -> I3 Int
+toI3 = I3 . fromEnum 
+fromI3 :: I3 Int -> Set13 
+fromI3 (I3 a) = toEnum a 
+
+instance Functor I3 where 
+    fmap   f (I3 a) = I3 (f a) 
+
+
+using2:: IO () 
+using2 = do 
+    putIOwords ["toI3", showT [map toI3 [John, Mary, Sam]]]
+    putIOwords ["fromI3", showT [map fromI3[I3 0, I3 1, I3 2]]]
+    putIOwords ["functor", showT (fmap id (I3 1))]
