@@ -18,6 +18,7 @@ module Lib.UsingSets
 
 import UniformBase 
 import Lib.Page13
+import Data.List (nub)
 
 -- instance Enum Set13 where   - is derived 
 -- gives toEnum :: Int -> Set13 and 
@@ -59,3 +60,22 @@ using2 = do
     putIOwords ["toI3", showT [map toI3 [John, Mary, Sam]]]
     putIOwords ["fromI3", showT [map fromI3[I3 0, I3 1, I3 2]]]
     putIOwords ["functor", showT (fmap id (I3 1))]
+
+domain13 = [minBound::Set13 .. maxBound::Set13]
+domain14 = [minBound  .. maxBound ]::[Set14]
+
+codomain13 = domain14
+image13 = fmap f13 domain13
+
+-- injective :: (a -> b) -> [a] -> Bool 
+injective = length image13 == length (nub image13)
+
+surjective = length codomain13 == length (nub image13)
+
+using3::IO ()
+using3 = do 
+        putIOwords ["minBound maxBound", showT [minBound::Set13, maxBound::Set13]]
+        putIOwords ["all13", showT [[minBound::Set13 .. maxBound::Set13]]]
+        putIOwords ["codomain13", showT codomain13]
+        putIOwords ["injective f13", showT (injective )]
+        putIOwords ["surjective f13", showT (surjective )]

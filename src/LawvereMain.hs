@@ -18,5 +18,6 @@ main =  do  -- with tests in other modules
     page13
     using
     using2
+    using3
 --    openMain
 
