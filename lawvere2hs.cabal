@@ -15,6 +15,7 @@ build-type:     Simple
 library
   exposed-modules:
       Lib.Page13
+      Lib.Page39
       Lib.UsingSets
   other-modules:
       Paths_lawvere2hs

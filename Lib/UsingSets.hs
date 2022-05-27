@@ -19,6 +19,7 @@ module Lib.UsingSets
 import UniformBase 
 import Lib.Page13
 import Data.List (nub)
+import Data.Tuple (swap)
 
 -- instance Enum Set13 where   - is derived 
 -- gives toEnum :: Int -> Set13 and 
@@ -61,21 +62,49 @@ using2 = do
     putIOwords ["fromI3", showT [map fromI3[I3 0, I3 1, I3 2]]]
     putIOwords ["functor", showT (fmap id (I3 1))]
 
-domain13 = [minBound::Set13 .. maxBound::Set13]
-domain14 = [minBound  .. maxBound ]::[Set14]
+-- domain13 = dots13 -- [minBound::Set13 .. maxBound::Set13]
+-- domain14 = dots14 -- [minBound  .. maxBound ]::[Set14]
 
-codomain13 = domain14
-image13 = fmap f13 domain13
+-- codomain13 = domain14
+-- image13 = fmap f13 dots
 
--- injective :: (a -> b) -> [a] -> Bool 
-injective = length image13 == length (nub image13)
+dots:: (Bounded a, Enum a) => [a]
+dots = [minBound  .. maxBound ] 
 
-surjective = length codomain13 == length (nub image13)
+-- dots13 = dots :: [Set13]
+-- dots14 = dots :: [Set14]
+
+injective :: (Bounded a, Enum a, Eq b, Enum b, Bounded b) => (a -> b)   -> Bool 
+injective f = length image1 == length (nub (dots `asTypeOf` image1))
+    where image1 = fmap f dots 
+
+-- surjective = length codomain13 == length (nub image13)
+surjective :: (Bounded a, Enum a, Eq b, Enum b, Bounded b) => (a -> b)   -> Bool 
+surjective f = length codomain1 == length (nub image1)
+    where   image1 = fmap f dots 
+            codomain1 = fmap f dots `asTypeOf` image1
+
+pfeil f a = (a, f a)
+pfeile f = map (pfeil f) (dots::[Set13])
+
+invPfeil = map swap 
+
+fromList ((k,v):kvs) k1 = if k ==k1 then v else fromList kvs k1 
+fromList [] k = errorT ["not a function for", showT k, "- error in inversion?"]
+
+invf13 = fromList (invPfeil $ pfeile f13)
+
 
 using3::IO ()
 using3 = do 
         putIOwords ["minBound maxBound", showT [minBound::Set13, maxBound::Set13]]
-        putIOwords ["all13", showT [[minBound::Set13 .. maxBound::Set13]]]
-        putIOwords ["codomain13", showT codomain13]
-        putIOwords ["injective f13", showT (injective )]
-        putIOwords ["surjective f13", showT (surjective )]
+        putIOwords ["all13", showT (dots ::[Set13])]
+        -- putIOwords ["codomain13", showT codomain13]
+        putIOwords ["injective f13", showT (injective f13)]
+        putIOwords ["surjective f13", showT (surjective f13 )]
+        putIOwords ["pfeil", showT (pfeil f13 John)]
+        putIOwords ["pfeile", showT (pfeile f13 )]
+        putIOwords ["inv pfeile", showT (invPfeil $ pfeile f13 )]
+        putIOwords ["inv f13", showT (invf13 Eggs )]
+        -- putIOwords ["inv f13 fails", showT (invf13 Toast )]
+
