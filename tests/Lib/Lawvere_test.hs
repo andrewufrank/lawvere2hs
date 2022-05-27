@@ -24,6 +24,9 @@ module Lib.Lawvere_test
     where
 
 import Lib.Page13 
+import Lib.Page39
+
+import Lib.UsingSets
 
 import UniformBase
  
@@ -79,3 +82,11 @@ assoc :: Eq d => (a -> b) -> (b -> c) -> (c -> d) -> a -> Bool
 assoc op1 op2 op3 a = (op3 . (op2 . op1)) a == ((op3 . op2) . op1) a 
 
 prop_assoc1  a = assoc g13 f13 h15 a 
+
+instance Arbitrary SetA where
+    arbitrary = arbitraryBoundedEnum
+
+inverse :: Eq a => (a->b) -> (b->a) -> a -> Bool 
+inverse op1 op2 a = op2 (op1 a) == a
+
+prop_inverse a = inverse f (invOf f) a

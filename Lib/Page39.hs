@@ -29,10 +29,19 @@ f (Mother) = Feather
 f (Father) = Stone
 f (Child) = Flower
 
+invOf f = fromList (invPfeil $ pfeile f)
+
+
+-- invf f = if bijective f then 
+--                 else errorT ["not bijective"]
+
 page39= do
     putIOwords ["fg13", showT (f Father)]
-    putIOwords ["injective", showT (injective f)]
-    putIOwords ["surjective", showT (surjective f)]
+    putIOwords ["injective f", showT (injective f)]
+    putIOwords ["surjective f", showT (surjective f)]
+    putIOwords ["bijective f", showT (bijective f)]
+    putIOwords ["f-1 feather", showT (invOf f Feather)]
+
     -- putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
     -- putStrLn "Lib.Page13 done"
     return ()

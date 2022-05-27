@@ -84,8 +84,11 @@ surjective f = length codomain1 == length (nub image1)
     where   image1 = fmap f dots 
             codomain1 = fmap f dots `asTypeOf` image1
 
+bijective :: (Bounded a, Enum a, Eq b, Enum b, Bounded b) => (a -> b)   -> Bool 
+bijective f = injective f && surjective f  
+
 pfeil f a = (a, f a)
-pfeile f = map (pfeil f) (dots::[Set13])
+pfeile f = map (pfeil f) (dots)
 
 invPfeil = map swap 
 
@@ -107,4 +110,5 @@ using3 = do
         putIOwords ["inv pfeile", showT (invPfeil $ pfeile f13 )]
         putIOwords ["inv f13", showT (invf13 Eggs )]
         -- putIOwords ["inv f13 fails", showT (invf13 Toast )]
+        putIOwords ["bijective f13", showT (bijective f13 )]
 
