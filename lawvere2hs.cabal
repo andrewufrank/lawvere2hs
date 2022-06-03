@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.6.
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -24,6 +24,7 @@ library
   ghc-options: -Wall
   build-depends:
       base >=4.7 && <5
+    , extra
     , uniformBase
   default-language: Haskell2010
 
@@ -36,6 +37,7 @@ executable lav
   ghc-options: -Wall
   build-depends:
       base >=4.7 && <5
+    , extra
     , lawvere2hs
     , uniformBase
   default-language: Haskell2010
@@ -53,6 +55,7 @@ test-suite test1
       HTF
     , QuickCheck
     , base >=4.7 && <5
+    , extra
     , lawvere2hs
     , numeric-prelude
     , test-invariant

@@ -19,8 +19,8 @@ module Lib.Page13
 import UniformBase 
 
 -- the objects
-data Set13 = John | Mary | Sam deriving (Show, Eq, Bounded, Enum)
-data Set14 = Eggs | Toast | Oatmeal | Coffee deriving (Show, Eq, Bounded, Enum)
+data Set13 = John | Mary | Sam deriving (Show, Eq, Ord, Bounded, Enum)
+data Set14 = Eggs | Toast | Oatmeal | Coffee deriving (Show, Eq, Ord, Bounded, Enum)
 data Set15 = D1 | D2 | D3 | D4 | D5 | D6 deriving (Show, Eq, Bounded, Enum)
 -- the maps 
 f13 :: Set13 -> Set14

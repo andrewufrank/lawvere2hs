@@ -18,10 +18,12 @@ module Lib.Page39
 
 import UniformBase 
 import Lib.UsingSets
+import Data.List.Extra
+import Lib.Page13
 
 -- the objects
-data SetA = Mother | Father | Child deriving (Show, Eq, Bounded, Enum)
-data SetB = Feather | Stone | Flower  deriving (Show, Eq, Bounded, Enum)
+data SetA = Mother | Father | Child deriving (Show, Eq, Bounded, Enum, Ord)
+data SetB = Feather | Stone | Flower  deriving (Show, Eq, Ord, Bounded, Enum)
  
 -- the maps 
 f :: SetA -> SetB
@@ -31,9 +33,17 @@ f (Child) = Flower
 
 invOf f = fromList (invPfeil $ pfeile f)
 
+-- section - f must be surjective (epimorphism)
+-- retraction - f must be injective (monomorpism)
 
 -- invf f = if bijective f then 
 --                 else errorT ["not bijective"]
+
+stackA = groupSort (pfeile f)
+stacking f = groupSort (pfeile f)
+sorting f = groupSort (invPfeil . pfeile $ f)
+
+naming f = nub . map snd . pfeile $ f 
 
 page39= do
     putIOwords ["fg13", showT (f Father)]
@@ -41,6 +51,13 @@ page39= do
     putIOwords ["surjective f", showT (surjective f)]
     putIOwords ["bijective f", showT (bijective f)]
     putIOwords ["f-1 feather", showT (invOf f Feather)]
+    putIOwords ["groupSort pfeile f", showT . stacking $ f]
+    putIOwords ["groupSort pfeile f-1", showT.stacking  $  f]
+    putIOwords ["sorting f", showT.sorting  $  f]
+    putIOwords ["sorting f13", showT.sorting  $  f13]
+    putIOwords ["stacking f13", showT.stacking  $  f13]
+    putIOwords ["naming f13", showT.naming  $  f13]
+
 
     -- putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
     -- putStrLn "Lib.Page13 done"
