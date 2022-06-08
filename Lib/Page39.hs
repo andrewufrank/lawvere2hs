@@ -31,19 +31,25 @@ f (Mother) = Feather
 f (Father) = Stone
 f (Child) = Flower
 
-invOf f = fromList (invPfeil $ pfeile f)
+invOf ff = fromList (invPfeil $ pfeile ff)
 
--- section - f must be surjective (epimorphism)
+-- section - f must be surjective (epimorphism) 
+--                  one of each (from stack)
 -- retraction - f must be injective (monomorpism)
 
 -- invf f = if bijective f then 
 --                 else errorT ["not bijective"]
 
 stackA = groupSort (pfeile f)
-stacking f = groupSort (pfeile f)
-sorting f = groupSort (invPfeil . pfeile $ f)
+stacking :: (Ord v, Bounded k, Enum k) => (k -> v) -> [(v, [k])]
+stacking ff = groupSort (invPfeil . pfeile $ ff)
+sorting :: (Ord k, Bounded k, Enum k) => (k -> v) -> [(k, [v])]
+sorting ff = groupSort (pfeile $ ff)
 
-naming f = nub . map snd . pfeile $ f 
+naming ff = nub . map snd . pfeile $ ff 
+
+-- allSections ff = take one from each (groupSort ff) 
+countSections = product . map length . map snd . stacking
 
 page39= do
     putIOwords ["fg13", showT (f Father)]
@@ -53,6 +59,8 @@ page39= do
     putIOwords ["f-1 feather", showT (invOf f Feather)]
     putIOwords ["groupSort pfeile f", showT . stacking $ f]
     putIOwords ["groupSort pfeile f-1", showT.stacking  $  f]
+    putIOwords ["countSections", showT $ countSections f]
+
     putIOwords ["sorting f", showT.sorting  $  f]
     putIOwords ["sorting f13", showT.sorting  $  f13]
     putIOwords ["stacking f13", showT.stacking  $  f13]

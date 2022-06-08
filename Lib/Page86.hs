@@ -43,14 +43,8 @@ coord = fromList [(P,0.0),(Q,3.5),(R,-4.3)]
 
 data SetA = A1 | A2 | A3 | A4 | A5 | A6 | A7 | A8 | A9 | A10 | A11 | A12 
     deriving  (Show, Eq, Bounded, Enum, Ord)
--- data SetB = Feather | Stone | Flower  deriving (Show, Eq, Ord, Bounded, Enum)
- 
--- f :: SetA -> SetB
--- f (Mother) = Feather
--- f (Father) = Stone
--- f (Child) = Flower
 
-f = fromList [(A1,A3), (A2,A3), (A3,A3), (A4,A6), (A5,A6), (A6,A6), (A7,A11),(A8,A11),(A9,A11), (A10,A11), (A11,A11), (A12,A12)]
+f86 = fromList [(A1,A3), (A2,A3), (A3,A3), (A4,A6), (A5,A6), (A6,A6), (A7,A11),(A8,A11),(A9,A11), (A10,A11), (A11,A11), (A12,A12)]
 
 -- section - f must be surjective (epimorphism)
 -- retraction - f must be injective (monomorpism)
@@ -64,54 +58,19 @@ f = fromList [(A1,A3), (A2,A3), (A3,A3), (A4,A6), (A5,A6), (A6,A6), (A7,A11),(A8
 
 -- naming f = nub . map snd . pfeile $ f 
 
+
+fixedPoints = map fst . filter fstEqsnd . pfeile  
+fstEqsnd (a,b) = a == b
+
 page86:: IO ()
 page86= do
-    putIOwords ["pfeile coord ", showT (pfeile coord)]
+    putIOwords ["\npage 86"]
+    putIOwords ["pfeile f ", showT (pfeile f86)]
     -- putIOwords ["naming plot ", showT (naming plot)]
-    putIOwords ["naming coord ", showT (naming coord)]
+    putIOwords ["naming f ", showT (naming f86)]
+    putIOwords ["stacking f ", showT (stacking f86)]
+    putIOwords ["fixedPoints f ", showT (fixedPoints f86)]
   
-    -- putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
-    -- putStrLn "Lib.Page13 done"
     return ()
-
-
--- g :: SetB -> SetA
--- g13(John) = Mary
--- g13(Sam) = Mary
--- g13(Mary) = John 
-
--- h15 :: Set14 -> Set15 
--- h15(Eggs) = D1 
--- h15(Coffee)= D2 
--- h15(Toast) = D4 
--- h15(Oatmeal) = D5
-
--- id13:: Set13 -> Set13 -- identity map 
--- id13 a = a 
--- id14:: Set14 -> Set14
--- id14 a = a 
-
--- fg13:: Set13 -> Set14 -- f  dot g
--- fg13 = f13 . g13
-
--- -- define a category with this example 
-
--- -- the objects Set13 and Set14 
--- -- the maps are f13 and g13
--- -- the identity maps: id13, id14
-
--- -- the identity law:   id13 . f = f 
--- -- the associate law: g13 f13 h15 
-
--- -- points 
--- data Set1 = One deriving (Show, Eq, Bounded, Enum)
--- john, mary, sam :: Set1 -> Set13
--- john One = John 
--- mary One = Mary
--- sam One = Sam 
-
-
-
-
 
 
