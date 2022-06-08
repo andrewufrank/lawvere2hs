@@ -1,7 +1,8 @@
 -----------------------------------------------------------------------------
 --
--- Module      :   the code for aticle II page 39
+-- Module      :   the code for session  7 pag 86 and following
 -- page 86  isomorphism and coordinates
+-- page 91 pictures of maps 
 --------------------------------------------------------------------------- 
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
@@ -40,7 +41,8 @@ coord = fromList [(P,0.0),(Q,3.5),(R,-4.3)]
 -- coord Q = 3.5
 
 
--- data SetA = Mother | Father | Child deriving (Show, Eq, Bounded, Enum, Ord)
+data SetA = A1 | A2 | A3 | A4 | A5 | A6 | A7 | A8 | A9 | A10 | A11 | A12 
+    deriving  (Show, Eq, Bounded, Enum, Ord)
 -- data SetB = Feather | Stone | Flower  deriving (Show, Eq, Ord, Bounded, Enum)
  
 -- f :: SetA -> SetB
@@ -48,7 +50,7 @@ coord = fromList [(P,0.0),(Q,3.5),(R,-4.3)]
 -- f (Father) = Stone
 -- f (Child) = Flower
 
--- invOf f = fromList (invPfeil $ pfeile f)
+f = fromList [(A1,A3), (A2,A3), (A3,A3), (A4,A6), (A5,A6), (A6,A6), (A7,A11),(A8,A11),(A9,A11), (A10,A11), (A11,A11), (A12,A12)]
 
 -- section - f must be surjective (epimorphism)
 -- retraction - f must be injective (monomorpism)
