@@ -14,7 +14,9 @@
 
 module Lib.Rules where
 
-import Data.List (nub)
+import Data.List (nub, group, sort)
+import Data.List.Extra (groupSort )
+
 import Data.Tuple (swap)
 import UniformBase
 
@@ -56,7 +58,19 @@ invFunct f = fromPfeile (invPfeil $ toPfeile f)
 
 -- section - f must be surjective (epimorphism) 
 --                  one of each (from stack)
--- retraction - f must be injective (monomorpism)
+
+stacking :: (Ord v, Bounded k, Enum k) => (k -> v) -> [(v, [k])]
+stacking ff = -- groupSort (invPfeil . toPfeile $ ff)
+        groupSort $ map  (\a -> (ff a, a)) dots
+
+countSections :: (Bounded a, Enum a, Ord b) => (a -> b) -> Int
+countSections f -- = product . map length . map snd . stacking
+        = product . map length . group. sort .  map f $ dots 
+--  wrong? does not test all elem of codomain!  
+
+-- test for all example function that surjective /= count 0
+
+-- retraction - f must be injective (monomorphism)
 
 -- invFunct f = if bijective f then 
 --                 else errorT ["not bijective"]

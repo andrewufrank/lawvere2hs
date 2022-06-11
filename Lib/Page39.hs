@@ -18,7 +18,7 @@ module Lib.Page39
 
 import UniformBase 
 import Lib.Rules
-import Data.List.Extra
+import Data.List.Extra ( nub, groupSort )
 import Lib.Page13
 
 -- the objects
@@ -40,16 +40,17 @@ f (Child) = Flower
 -- invFunct f = if bijective f then 
 --                 else errorT ["not bijective"]
 
+stackA :: [(SetA, [SetB])]
 stackA = groupSort (toPfeile f)
-stacking :: (Ord v, Bounded k, Enum k) => (k -> v) -> [(v, [k])]
-stacking ff = groupSort (invPfeil . toPfeile $ ff)
-sorting :: (Ord k, Bounded k, Enum k) => (k -> v) -> [(k, [v])]
-sorting ff = groupSort (toPfeile $ ff)
+-- sorting :: (Ord k, Bounded k, Enum k) => (k -> v) -> [(k, [v])]
+-- sorting ff = groupSort (toPfeile $ ff)
 
-naming ff = nub . map snd . toPfeile $ ff 
+-- naming ff = nub . map snd . toPfeile $ ff 
+naming :: (Bounded a, Enum a, Eq b) => (a -> b)-> [b]
+naming ff = nub . map ff $ dots
 
 -- allSections ff = take one from each (groupSort ff) 
-countSections = product . map length . map snd . stacking
+
 
 page39= do
     putIOwords ["fg13", showT (f Father)]
@@ -61,8 +62,8 @@ page39= do
     putIOwords ["groupSort toPfeile f-1", showT.stacking  $  f]
     putIOwords ["countSections", showT $ countSections f]
 
-    putIOwords ["sorting f", showT.sorting  $  f]
-    putIOwords ["sorting f13", showT.sorting  $  f13]
+    -- putIOwords ["sorting f", showT.sorting  $  f]
+    -- putIOwords ["sorting f13", showT.sorting  $  f13]
     putIOwords ["stacking f13", showT.stacking  $  f13]
     putIOwords ["naming f13", showT.naming  $  f13]
 

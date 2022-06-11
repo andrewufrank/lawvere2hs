@@ -89,4 +89,4 @@ instance Arbitrary SetA where
 inverse :: Eq a => (a->b) -> (b->a) -> a -> Bool 
 inverse op1 op2 a = op2 (op1 a) == a
 
-prop_inverse a = inverse f (invOf f) a
+prop_inverse a = inverse f (invFunct f) a
