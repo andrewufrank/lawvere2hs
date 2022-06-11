@@ -17,6 +17,7 @@ module Lib.Page13
      where
 
 import UniformBase 
+import Lib.Rules
 
 -- the objects
 data Set13 = John | Mary | Sam deriving (Show, Eq, Ord, Bounded, Enum)
@@ -69,6 +70,17 @@ page13= do
     putIOwords ["fg13", showT (fg13 John)]
     putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
     putStrLn "Lib.Page13 done"
+    putIOwords ["minBound maxBound", showT [minBound :: Set13, maxBound :: Set13]]
+    putIOwords ["all13", showT (dots :: [Set13])]
+    -- putIOwords ["codomain13", showT codomain13]
+    putIOwords ["injective f13", showT (injective f13)]
+    putIOwords ["surjective f13", showT (surjective f13)]
+    -- putIOwords ["toPfeil", showT (toPfeil f13 John)]
+    putIOwords ["toPfeile", showT (toPfeile f13)]
+    putIOwords ["inv toPfeile", showT (invPfeil $ toPfeile f13)]
+    putIOwords ["inv f13", showT (invFunct f13 Eggs)]
+    -- putIOwords ["inv f13 fails", showT (invf13 Toast )]
+    putIOwords ["bijective f13", showT (bijective f13)]
     return ()
 
 

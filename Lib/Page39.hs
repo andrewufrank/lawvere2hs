@@ -17,7 +17,7 @@ module Lib.Page39
      where
 
 import UniformBase 
-import Lib.UsingSets
+import Lib.Rules
 import Data.List.Extra
 import Lib.Page13
 
@@ -31,22 +31,22 @@ f (Mother) = Feather
 f (Father) = Stone
 f (Child) = Flower
 
-invOf ff = fromList (invPfeil $ pfeile ff)
+-- invOf ff = fromPfeile (invPfeil $ toPfeile ff)
 
 -- section - f must be surjective (epimorphism) 
 --                  one of each (from stack)
 -- retraction - f must be injective (monomorpism)
 
--- invf f = if bijective f then 
+-- invFunct f = if bijective f then 
 --                 else errorT ["not bijective"]
 
-stackA = groupSort (pfeile f)
+stackA = groupSort (toPfeile f)
 stacking :: (Ord v, Bounded k, Enum k) => (k -> v) -> [(v, [k])]
-stacking ff = groupSort (invPfeil . pfeile $ ff)
+stacking ff = groupSort (invPfeil . toPfeile $ ff)
 sorting :: (Ord k, Bounded k, Enum k) => (k -> v) -> [(k, [v])]
-sorting ff = groupSort (pfeile $ ff)
+sorting ff = groupSort (toPfeile $ ff)
 
-naming ff = nub . map snd . pfeile $ ff 
+naming ff = nub . map snd . toPfeile $ ff 
 
 -- allSections ff = take one from each (groupSort ff) 
 countSections = product . map length . map snd . stacking
@@ -56,9 +56,9 @@ page39= do
     putIOwords ["injective f", showT (injective f)]
     putIOwords ["surjective f", showT (surjective f)]
     putIOwords ["bijective f", showT (bijective f)]
-    putIOwords ["f-1 feather", showT (invOf f Feather)]
-    putIOwords ["groupSort pfeile f", showT . stacking $ f]
-    putIOwords ["groupSort pfeile f-1", showT.stacking  $  f]
+    putIOwords ["f-1 feather", showT (invFunct f Feather)]
+    putIOwords ["groupSort toPfeile f", showT . stacking $ f]
+    putIOwords ["groupSort toPfeile f-1", showT.stacking  $  f]
     putIOwords ["countSections", showT $ countSections f]
 
     putIOwords ["sorting f", showT.sorting  $  f]

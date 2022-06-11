@@ -18,7 +18,7 @@ module Lib.Page86
      where
 
 import UniformBase 
-import Lib.UsingSets
+import Lib.Rules
 import Data.List.Extra
 import Lib.Page13
 import Lib.Page39
@@ -31,11 +31,11 @@ data L = P | Q | R
 
 -- -- the maps 
 plot :: R -> L 
-plot = invOf coord
--- plot = fromList ([(0.0,P)])
+plot = invFunct coord
+-- plot = fromPfeile ([(0.0,P)])
 
 coord :: L -> R
-coord = fromList [(P,0.0),(Q,3.5),(R,-4.3)]
+coord = fromPfeile [(P,0.0),(Q,3.5),(R,-4.3)]
 -- coord P = 0.0
 -- coord R = -4.3
 -- coord Q = 3.5
@@ -44,28 +44,28 @@ coord = fromList [(P,0.0),(Q,3.5),(R,-4.3)]
 data SetA = A1 | A2 | A3 | A4 | A5 | A6 | A7 | A8 | A9 | A10 | A11 | A12 
     deriving  (Show, Eq, Bounded, Enum, Ord)
 
-f86 = fromList [(A1,A3), (A2,A3), (A3,A3), (A4,A6), (A5,A6), (A6,A6), (A7,A11),(A8,A11),(A9,A11), (A10,A11), (A11,A11), (A12,A12)]
+f86 = fromPfeile [(A1,A3), (A2,A3), (A3,A3), (A4,A6), (A5,A6), (A6,A6), (A7,A11),(A8,A11),(A9,A11), (A10,A11), (A11,A11), (A12,A12)]
 
 -- section - f must be surjective (epimorphism)
 -- retraction - f must be injective (monomorpism)
 
--- invf f = if bijective f then 
+-- invFunct f = if bijective f then 
 --                 else errorT ["not bijective"]
 
--- stackA = groupSort (pfeile f)
--- stacking f = groupSort (pfeile f)
--- sorting f = groupSort (invPfeil . pfeile $ f)
+-- stackA = groupSort (toPfeile f)
+-- stacking f = groupSort (toPfeile f)
+-- sorting f = groupSort (invPfeil . toPfeile $ f)
 
--- naming f = nub . map snd . pfeile $ f 
+-- naming f = nub . map snd . toPfeile $ f 
 
 
-fixedPoints = map fst . filter fstEqsnd . pfeile  
+fixedPoints = map fst . filter fstEqsnd . toPfeile  
 fstEqsnd (a,b) = a == b
 
 page86:: IO ()
 page86= do
     putIOwords ["\npage 86"]
-    putIOwords ["pfeile f ", showT (pfeile f86)]
+    putIOwords ["toPfeile f ", showT (toPfeile f86)]
     -- putIOwords ["naming plot ", showT (naming plot)]
     putIOwords ["naming f ", showT (naming f86)]
     putIOwords ["stacking f ", showT (stacking f86)]

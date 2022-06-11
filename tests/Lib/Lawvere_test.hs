@@ -26,7 +26,7 @@ module Lib.Lawvere_test
 import Lib.Page13 
 import Lib.Page39
 
-import Lib.UsingSets
+import Lib.Rules
 
 import UniformBase
  
