@@ -31,6 +31,14 @@ f (Mother) = Feather
 f (Father) = Stone
 f (Child) = Flower
 
+-- exercise 5 
+data A5 = A5b | A5p | A5q | A5r | A5s deriving (Show, Eq, Bounded, Enum, Ord)
+data B5 = B50 | B51 deriving (Show, Eq, Bounded, Enum, Ord)
+
+g :: A5 -> B5
+g = fromPfeile [(A5b,B50), (A5p,B50), (A5q,B50), (A5r,B51),
+     (A5s,B51)]
+
 -- invOf ff = fromPfeile (invPfeil $ toPfeile ff)
 
 -- section - f must be surjective (epimorphism) 
@@ -46,13 +54,13 @@ stackA = groupSort (toPfeile f)
 -- sorting ff = groupSort (toPfeile $ ff)
 
 -- naming ff = nub . map snd . toPfeile $ ff 
-naming :: (Bounded a, Enum a, Eq b) => (a -> b)-> [b]
-naming ff = nub . map ff $ dots
 
 -- allSections ff = take one from each (groupSort ff) 
 
 
+page39:: IO ()
 page39= do
+    putIOwords ["\npage39\n"]
     putIOwords ["fg13", showT (f Father)]
     putIOwords ["injective f", showT (injective f)]
     putIOwords ["surjective f", showT (surjective f)]
@@ -67,49 +75,19 @@ page39= do
     putIOwords ["stacking f13", showT.stacking  $  f13]
     putIOwords ["naming f13", showT.naming  $  f13]
 
+    putIOwords ["\nExercise 5"]
+    putIOwords ["g (q)", showT . g $ A5q]
+    putIOwords ["injective g", showT (injective g)]
+    putIOwords ["surjective g", showT (surjective g)]
+    putIOwords ["countSections g", showT (countSections g)]
+
 
     -- putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
     -- putStrLn "Lib.Page13 done"
     return ()
 
 
--- g :: SetB -> SetA
--- g13(John) = Mary
--- g13(Sam) = Mary
--- g13(Mary) = John 
-
--- h15 :: Set14 -> Set15 
--- h15(Eggs) = D1 
--- h15(Coffee)= D2 
--- h15(Toast) = D4 
--- h15(Oatmeal) = D5
-
--- id13:: Set13 -> Set13 -- identity map 
--- id13 a = a 
--- id14:: Set14 -> Set14
--- id14 a = a 
-
--- fg13:: Set13 -> Set14 -- f  dot g
--- fg13 = f13 . g13
-
--- -- define a category with this example 
-
--- -- the objects Set13 and Set14 
--- -- the maps are f13 and g13
--- -- the identity maps: id13, id14
-
--- -- the identity law:   id13 . f = f 
--- -- the associate law: g13 f13 h15 
-
--- -- points 
--- data Set1 = One deriving (Show, Eq, Bounded, Enum)
--- john, mary, sam :: Set1 -> Set13
--- john One = John 
--- mary One = Mary
--- sam One = Sam 
-
-page39:: IO ()
-
+-- construct all sections
 
 
 

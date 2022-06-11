@@ -19,7 +19,7 @@ module Lib.Page86
 
 import UniformBase 
 import Lib.Rules
-import Data.List.Extra
+-- import Data.List.Extra
 import Lib.Page13
 import Lib.Page39
 

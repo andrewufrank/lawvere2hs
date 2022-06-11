@@ -81,6 +81,11 @@ page13= do
     putIOwords ["inv f13", showT (invFunct f13 Eggs)]
     -- putIOwords ["inv f13 fails", showT (invf13 Toast )]
     putIOwords ["bijective f13", showT (bijective f13)]
+    putIOwords ["stacking f13", showT (stacking f13)]
+    putIOwords ["countSections f13", showT (countSections f13)]
+    putIOwords ["bijective id13", showT (bijective id13)]
+    putIOwords ["stacking id13", showT (stacking id13)]
+    putIOwords ["countSections id13", showT (countSections id13)]
     return ()
 
 
