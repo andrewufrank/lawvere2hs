@@ -105,6 +105,15 @@ testSection g f = and $ zipWith (==) (map (g.f) dots) dots
 
 -- retraction - f must be injective (monomorphism)
 
+fixedPoints :: (Eq a, Bounded a, Enum a) =>  (a -> a) -> [a]
+fixedPoints = map fst . filter fstEqsnd . toPfeile  
+    where 
+        fstEqsnd (a,b) = a == b
+
+-- sorting see page 81
+sorting f = groupSort (invPfeil . toPfeile $ f)
+-- sorting is a stacking of the inverse, if there is one
+
 -- invFunct f = if bijective f then 
 --                 else errorT ["not bijective"]
 
