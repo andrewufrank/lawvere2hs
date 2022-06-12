@@ -70,9 +70,10 @@ naming ff = nub . map ff $ dots
 countSections :: (Bounded a, Enum a, Ord b, Enum b, Bounded b) =>
              (a -> b) -> Int
 countSections f -- = product . map length . map snd . stacking
-        = if surjective f then 
-                product . map length . group. sort .  map f $ dots 
-                else 0
+        = if surjective f 
+            then 
+                product . map length .  stacking $ f
+            else 0
 
 
 -- retraction - f must be injective (monomorphism)

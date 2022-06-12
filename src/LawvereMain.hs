@@ -22,6 +22,6 @@ main =  do  -- with tests in other modules
     -- using2
     -- using3
     page39
-    page86
+    -- page86
 --    openMain
 

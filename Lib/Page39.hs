@@ -18,7 +18,8 @@ module Lib.Page39
 
 import UniformBase 
 import Lib.Rules
-import Data.List.Extra ( nub, groupSort )
+import Data.List (nub, group, sort)
+import Data.List.Extra ( groupSort )
 import Lib.Page13
 
 -- the objects
@@ -81,13 +82,31 @@ page39= do
     putIOwords ["surjective g", showT (surjective g)]
     putIOwords ["countSections g", showT (countSections g)]
 
+    putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
+    putIOwords ["c1", showT . c1 $ ("1", ['a', 'b'])]
+    putIOwords ["sta1 ff", showT . sta1 $ f13]
+    putIOwords ["exp1 ff", showT . exp1 $ f13]
+    -- putIOwords ["seq1 ff", showT . seq1 $ f13]
+    
 
-    -- putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
     -- putStrLn "Lib.Page13 done"
     return ()
 
 
 -- construct all sections
+c1 :: (a, [b]) -> [(a, b)]
+c1 (a,[]) = []
+c1 (a, (b:bs)) = (a,b) : c1 (a,bs)
+
+-- - create stack
+sta1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) => (k -> v) -> [(v, [k])]
+sta1 ff = groupSort $ map  (\a -> (ff a, a)) dots
+-- expand
+exp1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) =>  [(v, [k])] -> [[(v,k)]]
+exp1 ff = map c1 (sta1 ff)
+-- sequence all allSections
+seq1 ff = sequence . exp $ ff 
+
 
 
 
