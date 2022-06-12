@@ -31,7 +31,7 @@ data L = P | Q | R
 
 -- -- the maps 
 plot :: R -> L 
-plot = invFunct coord
+plot = invFunct_ coord
 -- plot = fromPfeile ([(0.0,P)])
 
 coord :: L -> R

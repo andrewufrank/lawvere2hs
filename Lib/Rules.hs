@@ -53,8 +53,12 @@ fromPfeile :: (Eq a, Show a) => [(a, b)] -> a -> b
 fromPfeile ((k, v) : kvs) k1 = if k == k1 then v else fromPfeile kvs k1
 fromPfeile [] k = errorT ["not a function for", showT k, "- error in inversion?"]
 
-invFunct :: (Eq a, Show a, Bounded p, Enum p) => (p -> a) -> a -> p
-invFunct f = fromPfeile (invPfeil $ toPfeile f)
+invFunct :: (Eq a, Show a, Enum a, Bounded a, Bounded p, Enum p) => (p -> a) -> a -> p
+invFunct f =  if bijective f 
+                then invFunct_ f
+                else errorT ["not bijective"]
+
+invFunct_ f =  fromPfeile (invPfeil $ toPfeile f)
 
 -- section - f must be surjective (epimorphism) 
 --                  one of each (from stack)
