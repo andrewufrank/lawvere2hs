@@ -14,11 +14,12 @@ build-type:     Simple
 
 library
   exposed-modules:
+      Lib.ExampleData
       Lib.Page13
       Lib.Page39
       Lib.Page86
       Lib.Rules
-    --   Lib.UsingSets
+      Lib.UsingSets
   other-modules:
       Paths_lawvere2hs
   hs-source-dirs:
