@@ -75,6 +75,33 @@ countSections f -- = product . map length . map snd . stacking
                 product . map length .  stacking $ f
             else 0
 
+    -- construct all sections - see page 93
+allSections :: (Show v, Ord v, Enum v, Bounded v, Bounded k, Enum k) 
+    => (k -> v) -> [(v -> k)]
+allSections ff = if surjective ff 
+        then map fromPfeile . seq1 $ ff
+        else []
+    where
+    c1 :: (a, [b]) -> [(a, b)]
+    c1 (a,[]) = []
+    c1 (a, (b:bs)) = (a,b) : c1 (a,bs)
+
+    -- - create stack
+    sta1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) => (k -> v) -> [(v, [k])]
+    sta1 ff = groupSort $ map  (\a -> (ff a, a)) dots
+    -- expand
+    exp1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) =>  (k -> v) -> [[(v,k)]]
+    exp1 ff = map c1 (sta1 ff)
+    -- sequence all allSections, gives the functions f which are sections to g 
+    seq1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) =>  (k -> v) -> [[(v,k)]]
+    seq1 ff = sequence . exp1 $ ff 
+
+
+-- testSection g . f = id
+testSection :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) =>
+        (k -> v) -> (v -> k) -> Bool
+testSection g f = and $ zipWith (==) (map (g.f) dots) dots
+
 
 -- retraction - f must be injective (monomorphism)
 

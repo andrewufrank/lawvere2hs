@@ -83,14 +83,14 @@ page39= do
     putIOwords ["countSections g", showT (countSections g)]
 
     putIOwords ["pag19 john . f13 prefers:", showT (f13 . john $ One)]
-    putIOwords ["c1", showT . c1 $ ("1", ['a', 'b'])]
-    putIOwords ["surjective f13", showT (surjective f13)]
-    putIOwords ["sta1 ff", showT . sta1 $ f13]
-    putIOwords ["exp1 ff", showT . exp1 $ f13]
+    -- putIOwords ["c1", showT . c1 $ ("1", ['a', 'b'])]
+    -- putIOwords ["surjective f13", showT (surjective f13)]
+    -- putIOwords ["sta1 ff", showT . sta1 $ f13]
+    -- putIOwords ["exp1 ff", showT . exp1 $ f13]
 
     putIOwords ["surjective g", showT (surjective g)]
-    putIOwords ["sta1 g", showT . sta1 $ g]
-    putIOwords ["exp1 g", showT . exp1 $ g]
+    putIOwords ["allSections g", showT . map toPfeile . allSections $ g]
+    -- putIOwords ["exp1 g", showT . exp1 $ g]
     -- putIOwords ["seq1 g", showT . seq1 $ g]
     
     putIOwords ["test first section", showT (testSection g (head . allSections $ g))]
@@ -98,29 +98,5 @@ page39= do
     -- putStrLn "Lib.Page13 done"
     return ()
 
-allSections :: (Show v, Ord v, Enum v, Bounded v, Bounded k, Enum k) =>
-    (k -> v) -> [(v -> k)]
-allSections ff = map fromPfeile . seq1 $ ff
-
--- construct all sections - see page 93
-c1 :: (a, [b]) -> [(a, b)]
-c1 (a,[]) = []
-c1 (a, (b:bs)) = (a,b) : c1 (a,bs)
-
--- - create stack
-sta1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) => (k -> v) -> [(v, [k])]
-sta1 ff = groupSort $ map  (\a -> (ff a, a)) dots
--- expand
-exp1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) =>  (k -> v) -> [[(v,k)]]
-exp1 ff = map c1 (sta1 ff)
--- sequence all allSections, gives the functions f which are sections to g 
-seq1 :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) =>  (k -> v) -> [[(v,k)]]
-seq1 ff = sequence . exp1 $ ff 
-
-
--- testSection g . f = id
-testSection :: (Ord v, Enum v, Bounded v, Bounded k, Enum k) =>
-        (k -> v) -> (v -> k) -> Bool
-testSection g f = and $ zipWith (==) (map (g.f) dots) dots
 
 
