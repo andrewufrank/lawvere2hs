@@ -12,6 +12,7 @@ module Main     where      -- must have Main (main) or Main where
 import  Lib.Page13
 import  Lib.Page39
 import  Lib.Page86
+import  Lib.Page135
 import Lib.ExampleData
 import Lib.Rules
 -- import Lib.UsingSets
@@ -26,6 +27,7 @@ main =  do  -- with tests in other modules
     -- page39
     page13data
     page39data
-    page86
+    -- page86
+    page135
 --    openMain
 

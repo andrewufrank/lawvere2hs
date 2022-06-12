@@ -48,11 +48,6 @@ page39data = do
     putIOwords ["countSections", showT $ countSections f39]
     putIOwords ["stacking f13", showT.stacking  $  f13]
     putIOwords ["naming f13", showT.naming  $  f13]
-
-    putIOwords ["\nExercise 5 data"]
-    putIOwords ["injective g39", showT (injective g39)]
-    putIOwords ["surjective g39", showT (surjective g39)]
-    putIOwords ["countSections g39", showT (countSections g39)]
     return ()
 
 
