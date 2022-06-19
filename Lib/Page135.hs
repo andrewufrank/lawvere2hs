@@ -23,19 +23,23 @@ import Data.List.Extra
 import Lib.Page13
 import Lib.Page39
 
-
-
+data SetX = X1 | X2 | X3 | X4 | X5 | X6 | X7 | X8 | X9   
+    deriving  (Show, Eq, Bounded, Enum, Ord)
+    --  diagram page 137
+f137 = fromPfeile [(X1,X2), (X2,X3), (X3,X4), (X4, X5), (X5,X3), (X6,X7), (X7,X5), (X8,X9),(X9,X9)]
 
 page135 :: IO ()
 page135 = do
     putIOwords ["\npage 135"]
-    -- putIOwords ["toPfeile f ", showT (toPfeile f86)]
-    -- -- putIOwords ["naming plot ", showT (naming plot)]
-    -- putIOwords ["naming f ", showT (naming f86)]
-    -- putIOwords ["stacking f ", showT (stacking f86)]
-    -- putIOwords ["fixedPoints f ", showT (fixedPoints f86)]
-    -- putIOwords ["sorting f ", showT (sorting f86)]
-    -- -- the map f86 A -> A has a codomain of the fixed points and
+    putIOwords ["toPfeile f ", showT (toPfeile f137)]
+    putIOwords ["injective f", showT (injective f137)]
+    putIOwords ["surjective f", showT (surjective f137)]
+    putIOwords ["countSections f", showT (countSections f137)]
+    putIOwords ["naming f ", showT (naming f137)]
+    putIOwords ["stacking f ", showT (stacking f137)]
+    putIOwords ["fixedPoints f ", showT (fixedPoints f137)]
+    putIOwords ["sorting f ", showT (sorting f137)]
+    -- -- the map f137 A -> A has a codomain of the fixed points and
     -- -- the sorting is then done with this codomain
     return ()
 

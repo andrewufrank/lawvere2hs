@@ -20,6 +20,8 @@ import Data.List.Extra (groupSort )
 import Data.Tuple (swap)
 import UniformBase
 
+-- see summary p.58
+
 
 injective :: (Bounded a, Enum a, Eq b, Enum b, Bounded b) => (a -> b) -> Bool
 injective f = length image1 == length (nub (dots `asTypeOf` image1))

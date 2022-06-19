@@ -4,6 +4,7 @@
 ------------------------------------------------------------------------
 
 {-# OPTIONS_GHC -Wno-missing-signatures #-}
+{-# OPTIONS_GHC -Wno-unused-imports #-}
 
 module Main     where      -- must have Main (main) or Main where
 
