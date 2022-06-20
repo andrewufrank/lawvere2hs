@@ -29,7 +29,7 @@ type R = Float
 data L = P | Q | R 
     deriving (Show, Eq, Ord, Bounded, Enum)
 
--- -- the maps 
+-- -- the maps
 plot :: R -> L 
 plot = invFunct_ coord
 -- plot = fromPfeile ([(0.0,P)])

@@ -17,6 +17,13 @@
 module Lib.Page135
      where
 
+-- change prelude for constrainded-categories
+import Prelude ()
+import Control.Category.Constrained.Prelude
+import qualified Control.Category.Hask as Hask
+import Control.Monad.Constrained
+-- end 
+
 import UniformBase 
 import Lib.Rules
 import Data.List.Extra
@@ -33,12 +40,15 @@ f137 = fromPfeile [(X1,X2), (X2,X3), (X3,X4), (X4, X5), (X5,X3), (X6,X7), (X7,X5
 data SetY a = SetY a 
     deriving  (Show, Eq, Bounded, Ord)  -- not Enum
 
-instance Functor SetY where
-    fmap ff (SetY a) = SetY (ff a)
-    -- fmap . f137 = f137' . fmap
+-- instance Functor SetY (->) (->) where
+--     fmap ff (SetY a) = SetY (ff a)
+--     -- fmap . f137 = f137' . fmap
 
-f137' :: SetY SetX -> SetY SetX
-f137' = fmap f137 
+-- f137' :: SetY SetX -> SetY SetX
+-- f137' = fmap f137 
+
+-- fp137' :: (Enum (SetY SetX)) => [SetY SetX]
+-- fp137' = fixedPoints f137'
 
 page135 :: IO ()
 page135 = do
@@ -53,7 +63,7 @@ page135 = do
     putIOwords ["sorting f ", showT (sorting f137)]
     -- -- the map f137 A -> A has a codomain of the fixed points and
     -- -- the sorting is then done with this codomain
-    -- putIOwords ["fixedPoints f' ", showT (fixedPoints f137')]
-    return ()
+    -- putIOwords ["fixedPoints f' ", showT (fp137')]
+    -- return ()
 
 
