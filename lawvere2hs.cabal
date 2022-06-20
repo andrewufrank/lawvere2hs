@@ -15,6 +15,7 @@ build-type:     Simple
 library
   exposed-modules:
       Lib.ExampleData
+      Lib.ExampleSet
       Lib.HaskGraph
       Lib.Page13
       Lib.Page135

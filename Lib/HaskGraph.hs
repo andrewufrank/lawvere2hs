@@ -32,7 +32,7 @@ import Data.Set (Set)
 import Data.Monoid
 -- end 
 import UniformBase 
-
+import qualified Data.Map.Strict as Map
 
 
 -- necessary because set has context Ord 
@@ -51,11 +51,28 @@ points = Set.fromList ["a1", "a2"]
 coords :: Set Float
 coords = Set.fromList [1.0, 2.0]
 
+-- point :: Text -> Float
+-- point p = 
+    
 pageHaskGraph :: IO ()
 pageHaskGraph= do
     putIOwords ["\npageHaskGraph"]
     putIOwords ["points", showT points]
     putIOwords ["coords", showT coords]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     -- putIOwords ["y1", showT y1]
 -- x :: Set Integer
 -- x = Set.fromList [1 .. 9]
