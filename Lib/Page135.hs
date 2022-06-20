@@ -40,15 +40,15 @@ f137 = fromPfeile [(X1,X2), (X2,X3), (X3,X4), (X4, X5), (X5,X3), (X6,X7), (X7,X5
 data SetY a = SetY a 
     deriving  (Show, Eq, Bounded, Ord)  -- not Enum
 
--- instance Functor SetY (->) (->) where
---     fmap ff (SetY a) = SetY (ff a)
+instance Hask.Functor SetY  where
+    fmap ff (SetY a) = SetY (ff a)
 --     -- fmap . f137 = f137' . fmap
 
--- f137' :: SetY SetX -> SetY SetX
--- f137' = fmap f137 
+f137' :: SetY SetX -> SetY SetX
+f137' = fmap f137 
 
--- fp137' :: (Enum (SetY SetX)) => [SetY SetX]
--- fp137' = fixedPoints f137'
+fp137' :: (Enum (SetY SetX)) => [SetY SetX]
+fp137' = fixedPoints f137'
 
 page135 :: IO ()
 page135 = do

@@ -17,6 +17,7 @@ library
       Lib.ExampleData
       Lib.Page13
       Lib.Page135
+      Lib.Page135hask
       Lib.Page39
       Lib.Page86
       Lib.Rules
@@ -29,6 +30,7 @@ library
   build-depends:
       base >=4.7 && <5
     , constrained-categories
+    , containers
     , extra
     , uniformBase
   default-language: Haskell2010
@@ -43,6 +45,7 @@ executable lav
   build-depends:
       base >=4.7 && <5
     , constrained-categories
+    , containers
     , extra
     , lawvere2hs
     , uniformBase
@@ -62,6 +65,7 @@ test-suite test1
     , QuickCheck
     , base >=4.7 && <5
     , constrained-categories
+    , containers
     , extra
     , lawvere2hs
     , numeric-prelude
