@@ -2,6 +2,11 @@
 --
 -- Module      :   the code for artcke III pag 135 and following
 -- attemps with sets and hask style (using prelude from constrained=categories)
+{- The sets here are lists, but not types ie. not objects of the category (the object is set)
+what is the gain? would this work with the gis types (objects)
+
+
+-}
 --------------------------------------------------------------------------- 
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
