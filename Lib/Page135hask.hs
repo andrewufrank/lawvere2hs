@@ -47,6 +47,19 @@ inOrd = id
 instance Functor Set Ranking Ranking where
   fmap = constrainedFmap Set.map
 
+-- type EqC = ConstrainedCategory (->) Eq
+
+
+-- eqq :: (Eq a, Eq b) => (a -> b) -> EqC a b 
+-- eqq = constrained 
+
+ 
+-- -- inOrd :: Ranking a b -> Ranking a b
+-- -- inOrd = id
+
+-- instance Functor Set EqC EqC where
+--   fmap = constrainedFmap Set.map
+
 
 x :: Set Integer
 x = Set.fromList [1 .. 9]
