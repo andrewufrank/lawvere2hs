@@ -10,6 +10,8 @@
 {-# LANGUAGE FlexibleInstances           #-}
 -- {-# LANGUAGE Arrows                      #-}
 {-# LANGUAGE RebindableSyntax            #-}
+{-# OPTIONS_GHC -Wno-orphans #-}
+{-# OPTIONS_GHC -Wno-type-defaults #-}
 
 module Lib.ExampleSet where
 
@@ -25,7 +27,7 @@ import qualified Data.Set as Set
 import Data.Set (Set)
   
 
-import Data.Monoid
+import Data.Monoid ()
 
 mainEx :: IO ()
 mainEx = do

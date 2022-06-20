@@ -33,6 +33,7 @@ import Data.Monoid
 -- end 
 import UniformBase 
 import qualified Data.Map.Strict as Map
+import Data.List (nub)
 
 
 -- necessary because set has context Ord 
@@ -44,21 +45,40 @@ inOrd = id
 instance Functor Set Ranking Ranking where
   fmap = constrainedFmap Set.map
 
+pointData :: Map.Map Text Float
+pointData = Map.fromList $ zip ["a1", "a2"] [1.0, 2.0]
+
+injectiveTest :: (Eq a, Eq b) => Map.Map a b -> Bool
+injectiveTest mp = length ls == (length . nub $ ls)
+    where ls = map snd. Map.toList $ mp
+
 
 points :: Set Text
-points = Set.fromList ["a1", "a2"]
+points = Set.fromList $ Map.keys pointData
+
+ps :: [Text]
+ps = Set.toList points
 
 coords :: Set Float
-coords = Set.fromList [1.0, 2.0]
+coords = Set.fromList $ Map.elems pointData
 
--- point :: Text -> Float
--- point p = 
-    
+cs :: [Float]
+cs = Set.toList coords
+
+p2c :: Map.Map Text Float -> Text -> Float
+p2c pdb p = pdb Map.! p
+
+c2p :: Map.Map Text Float -> Float -> Text
+c2p pdb c = (Map.fromList . map swap . Map.toList $ pdb) Map.! c
+
 pageHaskGraph :: IO ()
 pageHaskGraph= do
     putIOwords ["\npageHaskGraph"]
     putIOwords ["points", showT points]
     putIOwords ["coords", showT coords]
+    putIOwords ["p2c", showT . map (p2c pointData) $ ps]
+    putIOwords ["c2p", showT . map (c2p pointData) $ cs]
+    putIOwords ["injective pointData", showT . injectiveTest $ pointData]
 
 
 
