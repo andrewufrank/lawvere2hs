@@ -16,6 +16,7 @@ module Main     where      -- must have Main (main) or Main where
 -- -- import  Lib.Page135
 -- import  Lib.Page135hask
 import Lib.HaskGraph
+import Lib.CCworld 
 import Lib.ExampleSet
 -- import Lib.ExampleData
 -- import Lib.Rules
@@ -34,7 +35,8 @@ main =  do  -- with tests in other modules
     -- page86
     -- page135
     -- page135hask
-    pageHaskGraph
-    mainEx
+    -- pageHaskGraph
+    pageCCworld
+    -- mainEx
 --    openMain
 

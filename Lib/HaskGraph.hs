@@ -47,6 +47,7 @@ instance Functor Set Ranking Ranking where
 
 pointData :: Map.Map Text Float
 pointData = Map.fromList $ zip ["a1", "a2"] [1.0, 2.0]
+-- is automatically surjective (if no other def of domain)
 
 injectiveTest :: (Eq a, Eq b) => Map.Map a b -> Bool
 injectiveTest mp = length ls == (length . nub $ ls)
