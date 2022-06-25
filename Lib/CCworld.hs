@@ -14,6 +14,7 @@ specialized (for simplicity) one D space, simple value Float
 {-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
+{-# LANGUAGE DeriveAnyClass     #-}
 {-# OPTIONS_GHC -Wno-unused-imports #-}
 {-# OPTIONS_GHC -Wno-missing-signatures #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
@@ -36,14 +37,14 @@ import Data.List (nub)
 pageCCworld :: IO ()
 pageCCworld= do
     putIOwords ["\npageCCworld"]
-    putIOwords ["w1", showT . Map.toList $ w1]
+    putIOwords ["field data f1", showT . Map.toList $ f1]
     -- putIOwords ["coords", showT coords]
     -- putIOwords ["p2c", showT . map (p2c pointData) $ ps]
     -- putIOwords ["c2p", showT . map (c2p pointData) $ cs]
     -- putIOwords ["injective pointData", showT . injectiveTest $ pointData]
 
 data Point1d = Point1d {x1 :: Float}
-    deriving (Eq, Ord, Read, Show)
+    deriving (Eq, Ord, Read, Show, Num)
 mkp = Point1d
 
 data Theme = Theme {unTheme :: Text}
@@ -55,6 +56,11 @@ data Time1 = Time1 {unTime1:: Int}
 mkt = Time1 
 t0 = Time1 0
 
+instance Functor Int Time1 Ord where
+    fmap = fmap
+
+--------------------- field
+
 data WorldPoint = WP {space::Point1d, time::Time1, theme::Theme}
     deriving (Eq, Ord, Read, Show)
 mkwp x11 t1 = WP (mkp x11) (mkt t1) (Theme "First")
@@ -65,11 +71,19 @@ data Value = ValueInt Int
     deriving (Eq, Ord, Read, Show)
 mkvi = ValueInt 
 
-type World = Map.Map WorldPoint Value
+type Field = Map.Map WorldPoint Value
 
-w1 = Map.fromList [(wp1, mkvi 0),  ( mkwp 1.2 2, mkvi 1)]
+f1 = Map.fromList [(wp1, mkvi 0),  ( mkwp 1.2 2, mkvi 1)]
 
+------------------ objects
+
+data ObjProperty = OV {oid::Obj, otime::Time1, otheme::Theme}
+-- genau wie WorldPoint
 data Obj = Obj {unObj :: Int }
+
+type Objects = Map.Map ObjProperty Value
+
+
 -- data Field = Field Float Float
 -- field1 = Field 1.0 0.1 
 
