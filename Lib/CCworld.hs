@@ -65,22 +65,19 @@ tadd = t0 + t2
 instance Functor Time1  where
     fmap f = Time1 . f . unTime1
 instance Applicative Time1 where  
-    -- (<*>) = liftA2 id
-
     liftA2 f (Time1 x) (Time1 y) = Time1 (f x y)
     pure = Time1
---         f <*> y = f y  
         
 instance Num (Time1 Int) where
     (+) x y = liftA2 (+) x y
     -- (+) x y = fmap (+)  x <*> y 
     -- (-) = fmap (-)
-    -- (*) = fmap (*)
+    (*) = liftA2 (*)
     negate         = fmap negate
-    -- fromInteger i  = i
+    fromInteger i  = Time1 . fromInteger $ i
 
-    -- abs    = integerAbs
-    -- signum = integerSignum
+    abs    = fmap abs
+    signum = fmap signum
 
 --------------------- field
 
