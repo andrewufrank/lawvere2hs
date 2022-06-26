@@ -17,7 +17,9 @@ objects: a sigle value (no theme yet)
 {-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
-{-# LANGUAGE DeriveAnyClass     #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE DeriveAnyClass #-}
+
 {-# LANGUAGE UndecidableInstances    #-}
 {-# OPTIONS_GHC -Wno-unused-imports #-}
 {-# OPTIONS_GHC -Wno-missing-signatures #-}
@@ -41,17 +43,40 @@ import GHC.Base
 pageCCdata :: IO ()
 pageCCdata= do
     putIOwords ["\npageCCdata"]
-    -- putIOwords ["field data f1", showT . Map.toList $ f1]
-    -- putIOwords ["t0 time", showT (mkt 0)]
-    -- putIOwords ["add time", showT (mkt 1 + mkt 3)]
+    putIOwords ["field f1", showT  field1]
+    putIOwords ["at2", showT at2]
+    putIOwords ["o1", showT o1]
     -- putIOwords ["add points", showT (mkp 1 + mkp 4)]
     -- putIOwords ["coords", showT coords]
     -- putIOwords ["p2c", showT . map (p2c pointData) $ ps]
     -- putIOwords ["c2p", showT . map (c2p pointData) $ cs]
     -- putIOwords ["injective pointData", showT . injectiveTest $ pointData]
 
+------------------------------------------------ base data types
+data Value a = Value  a
+    deriving (Eq, Ord, Read, Show, Generic, Zeros)
+unvalue (Value a) = a 
+type ValueF = Value Float
+mkval :: Float -> ValueF
+mkval = Value 
+instance Functor Value where
+    fmap f = Value . f . unvalue 
+
+instance Zeros Float where zero = zero
+
+newtype ObjID a = ObjID a
+    deriving (Show, Read, Ord, Eq, Generic, Zeros)
+unobjid (ObjID v) = v 
+type ObjIDInt = ObjID Int
+instance Functor ObjID where
+        fmap f = ObjID . f . unobjid
+mkid :: Int -> ObjIDInt
+mkid = ObjID
+
+-------- Point
+
 data Point1d a = Point1d {x1 :: a}
-    deriving (Eq, Ord, Read, Show)
+    deriving (Show, Read, Ord, Eq, Generic, Zeros)
 type Point  = Point1d Float 
 mkpt :: Float -> Point 
 mkpt = Point1d
@@ -74,14 +99,24 @@ instance (Num f) => Num (Point1d f) where
 --------------------- field
 
 data Field = Field {base :: Float, tang :: Float}
-        deriving (Eq, Ord, Read, Show)
+        deriving (Eq, Ord, Read, Show, Generic, Zeros)
 -- ^ Field with trival interpolation f x = base + x * tang
 
-fieldval :: Field -> Point1d Float -> Float
-fieldval (Field b t) p = b + x1 p * t 
+fieldval :: Field -> Point1d Float -> ValueF
+fieldval (Field b t) p = mkval $ b + x1 p * t 
 
 field1 = Field 0 0.1
 at2 = fieldval field1 (mkpt 2)
+
+-- ------------------ objects
+data Obj = Obj {oid::ObjIDInt, oval :: ValueF}
+    deriving (Show, Read, Ord, Eq, Generic, Zeros)
+
+mkobj :: Int -> Float -> Obj
+mkobj i v =  Obj (ObjID i) (mkval v)
+
+o1 = mkobj 1 3.2
+
 -------------------------old
 
 -- data WorldPoint = WP {space::Point1dFloat, val:: Float}
@@ -90,19 +125,12 @@ at2 = fieldval field1 (mkpt 2)
 -- wp1 = WP p1 t0 th0
 
 -- p1 = Point1d 1.0
--- data Value = ValueInt Int
---     deriving (Eq, Ord, Read, Show)
--- mkvi = ValueInt 
+
 
 -- type Field = Map.Map WorldPoint Value
 
 -- f1 = Map.fromList [(wp1, mkvi 0),  ( mkwp 1.2 2, mkvi 1)]
 
--- ------------------ objects
-
--- data ObjProperty = OV {oid::Obj, otime::TimeInt, otheme::Theme}
--- -- genau wie WorldPoint
--- data Obj = Obj {unObj :: Int }
 
 -- type Objects = Map.Map ObjProperty Value
 
