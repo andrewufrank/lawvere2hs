@@ -14,6 +14,7 @@ build-type:     Simple
 
 library
   exposed-modules:
+      Lib.CCdata
       Lib.CCworld
       Lib.ExampleData
       Lib.ExampleSet
