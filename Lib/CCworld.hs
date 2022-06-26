@@ -15,16 +15,17 @@ specialized (for simplicity) one D space, simple value Float
 {-# LANGUAGE TypeSynonymInstances  #-}
 {-# LANGUAGE OverloadedStrings     #-}
 {-# LANGUAGE DeriveAnyClass     #-}
+{-# LANGUAGE UndecidableInstances    #-}
 {-# OPTIONS_GHC -Wno-unused-imports #-}
 {-# OPTIONS_GHC -Wno-missing-signatures #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module Lib.CCworld
-     where -- change prelude for constrainded-categories
-import Prelude ()
-import Control.Category.Constrained.Prelude
-import qualified Control.Category.Hask as Hask
-import Control.Monad.Constrained
+     where -- normal prelude
+-- import Prelude ()
+-- import Control.Category.Constrained.Prelude
+-- import qualified Control.Category.Hask as Hask
+-- import Control.Monad.Constrained
 -- for set example code
 import qualified Data.Set as Set
 import Data.Set (Set)
@@ -33,11 +34,13 @@ import Data.Monoid
 import UniformBase 
 import qualified Data.Map.Strict as Map
 import Data.List (nub)
-
+import GHC.Base
 pageCCworld :: IO ()
 pageCCworld= do
     putIOwords ["\npageCCworld"]
     putIOwords ["field data f1", showT . Map.toList $ f1]
+    putIOwords ["t0 time", showT (t0)]
+    putIOwords ["add time", showT tadd]
     -- putIOwords ["coords", showT coords]
     -- putIOwords ["p2c", showT . map (p2c pointData) $ ps]
     -- putIOwords ["c2p", showT . map (c2p pointData) $ cs]
@@ -56,11 +59,16 @@ data Time1 a = Time1 {unTime1:: a}
 type TimeInt = Time1 Int
 mkt = Time1 
 t0 = Time1 0
+t2 = Time1 2
+tadd = t0 + t2
 
-instance Hask.Functor Time1  where
+instance Functor Time1  where
     fmap f = Time1 . f . unTime1
-instance Hask.Applicative Time1 where  
---         pure = Time1  
+instance Applicative Time1 where  
+    -- (<*>) = liftA2 id
+
+    liftA2 f (Time1 x) (Time1 y) = Time1 (f x y)
+    pure = Time1
 --         f <*> y = f y  
         
 instance Num (Time1 Int) where
