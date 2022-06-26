@@ -44,24 +44,39 @@ pageCCworld= do
     -- putIOwords ["injective pointData", showT . injectiveTest $ pointData]
 
 data Point1d = Point1d {x1 :: Float}
-    deriving (Eq, Ord, Read, Show, Num)
+    deriving (Eq, Ord, Read, Show)
 mkp = Point1d
 
 data Theme = Theme {unTheme :: Text}
     deriving (Eq, Ord, Read, Show)
 th0 = Theme "zero"
 
-data Time1 = Time1 {unTime1:: Int}
+data Time1 a = Time1 {unTime1:: a}
     deriving (Eq, Ord, Read, Show)
+type TimeInt = Time1 Int
 mkt = Time1 
 t0 = Time1 0
 
-instance Functor Int Time1 Ord where
-    fmap = fmap
+instance Hask.Functor Time1  where
+    fmap f = Time1 . f . unTime1
+instance Hask.Applicative Time1 where  
+--         pure = Time1  
+--         f <*> y = f y  
+        
+instance Num (Time1 Int) where
+    (+) x y = liftA2 (+) x y
+    -- (+) x y = fmap (+)  x <*> y 
+    -- (-) = fmap (-)
+    -- (*) = fmap (*)
+    negate         = fmap negate
+    -- fromInteger i  = i
+
+    -- abs    = integerAbs
+    -- signum = integerSignum
 
 --------------------- field
 
-data WorldPoint = WP {space::Point1d, time::Time1, theme::Theme}
+data WorldPoint = WP {space::Point1d, time::TimeInt, theme::Theme}
     deriving (Eq, Ord, Read, Show)
 mkwp x11 t1 = WP (mkp x11) (mkt t1) (Theme "First")
 wp1 = WP p1 t0 th0
@@ -77,7 +92,7 @@ f1 = Map.fromList [(wp1, mkvi 0),  ( mkwp 1.2 2, mkvi 1)]
 
 ------------------ objects
 
-data ObjProperty = OV {oid::Obj, otime::Time1, otheme::Theme}
+data ObjProperty = OV {oid::Obj, otime::TimeInt, otheme::Theme}
 -- genau wie WorldPoint
 data Obj = Obj {unObj :: Int }
 
