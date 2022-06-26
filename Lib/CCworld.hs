@@ -39,16 +39,33 @@ pageCCworld :: IO ()
 pageCCworld= do
     putIOwords ["\npageCCworld"]
     putIOwords ["field data f1", showT . Map.toList $ f1]
-    putIOwords ["t0 time", showT (t0)]
-    putIOwords ["add time", showT tadd]
+    putIOwords ["t0 time", showT (mkt 0)]
+    putIOwords ["add time", showT (mkt 1 + mkt 3)]
+    putIOwords ["add points", showT (mkp 1 + mkp 4)]
     -- putIOwords ["coords", showT coords]
     -- putIOwords ["p2c", showT . map (p2c pointData) $ ps]
     -- putIOwords ["c2p", showT . map (c2p pointData) $ cs]
     -- putIOwords ["injective pointData", showT . injectiveTest $ pointData]
 
-data Point1d = Point1d {x1 :: Float}
+data Point1d a = Point1d {x1 :: a}
     deriving (Eq, Ord, Read, Show)
+type Point1dFloat = Point1d Float 
+mkp :: Float -> Point1dFloat
 mkp = Point1d
+
+instance Functor Point1d  where
+    fmap f = Point1d . f . x1
+instance Applicative Point1d where  
+    liftA2 f (Point1d x) (Point1d y) = Point1d (f x y)
+    pure = Point1d
+        
+instance (Num f) => Num (Point1d f) where
+    (+)  = liftA2 (+)
+    (*) = liftA2 (*)
+    negate         = fmap negate
+    fromInteger i  = Point1d . fromInteger $ i
+    abs    = fmap abs
+    signum = fmap signum
 
 data Theme = Theme {unTheme :: Text}
     deriving (Eq, Ord, Read, Show)
@@ -56,7 +73,9 @@ th0 = Theme "zero"
 
 data Time1 a = Time1 {unTime1:: a}
     deriving (Eq, Ord, Read, Show)
+    -- needs a discussion what ops are reasonable
 type TimeInt = Time1 Int
+mkt :: Int -> Time1 Int 
 mkt = Time1 
 t0 = Time1 0
 t2 = Time1 2
@@ -69,19 +88,16 @@ instance Applicative Time1 where
     pure = Time1
         
 instance Num (Time1 Int) where
-    (+) x y = liftA2 (+) x y
-    -- (+) x y = fmap (+)  x <*> y 
-    -- (-) = fmap (-)
+    (+)  = liftA2 (+)
     (*) = liftA2 (*)
     negate         = fmap negate
     fromInteger i  = Time1 . fromInteger $ i
-
     abs    = fmap abs
     signum = fmap signum
 
 --------------------- field
 
-data WorldPoint = WP {space::Point1d, time::TimeInt, theme::Theme}
+data WorldPoint = WP {space::Point1dFloat, time::TimeInt, theme::Theme}
     deriving (Eq, Ord, Read, Show)
 mkwp x11 t1 = WP (mkp x11) (mkt t1) (Theme "First")
 wp1 = WP p1 t0 th0
